@@ -6,7 +6,8 @@ Amount_of_Decimals = input("How many decimals?\nAmount of decimals: ")
 Amount_of_Decimals = int(Amount_of_Decimals)
 
 Sign = input("Do you want to do\nAddition (A)\nSubstraction (S)\nMultiplication (M)\nDivision (D)\n")
-if Sign.upper() == "D":
+Sign = Sign.upper()
+if Sign == "D":
     print(f"if the answer contains infinte decimals write it with {Amount_of_Decimals} decimals")
 print("You can change this later by typing the right letter.")
 
