@@ -1,19 +1,17 @@
 #Quiz Game
 import random
 
-t = 0
+t = 1
 Sign = "o"
 Sign_Loop_Value = 0
 global Points
 Points = 0
-Points_bool = True
+Difficulty = -1
 
 print("Game by LearnCetc\n")
-Amount_of_Decimals = input("How many decimals?\nAmount of decimals: ")
-Amount_of_Decimals = int(Amount_of_Decimals)
 
 while Sign_Loop_Value == 0: #Used to make the code loop until a valid letter has been writen
-    Sign = input("\nDo you want to do\nAddition (A)\nSubstraction (S)\nMultiplication (M)\nDivision (D)\n")
+    Sign = input("\nDo you want to do\nAddition (A)\nSubstraction (S)\nMultiplication (M)\nDivision (D)\n: ")
     Sign = Sign.upper()
 
     if Sign == "A":
@@ -30,12 +28,21 @@ while Sign_Loop_Value == 0: #Used to make the code loop until a valid letter has
 
     if Sign == "D":
         Sign = "/"
-        print(f"if the answer contains infinte decimals round it and then write it with {Amount_of_Decimals} decimals")
+        print(f"if the answer contains infinte decimals round it and then write it with {Difficulty} decimals")
         Sign_Loop_Value += 1
 
-With_or_Without_Points = input("Do you want to use points? (Y) (N): ")
-if With_or_Without_Points.upper() == "N":
-    Points_bool = False
+while t == 1:
+    Difficulty_Mode  = input("What difficulty do you want to play on?\nEasy (E)\nMedium (M)\nHard(H)\nDifficulty: ")
+
+    if Difficulty_Mode.upper() == "E":
+        Difficulty = 0
+        t -= 1
+    if Difficulty_Mode.upper() == "M":
+        Difficulty = 1
+        t -= 1
+    if Difficulty_Mode.upper() == "H":
+        Difficulty = 2
+        t -= 1
 
 #print("You can change this later by typing the right letter.") #to be added later
 
@@ -46,23 +53,25 @@ while t == 0: #Loop the whole program
 
     def x():
         x = random.random() * 10
-        x = round(x, Amount_of_Decimals)
-        x += Points
+        x = round(x, Difficulty)
         if int(x) == float(x):
             x = int(x)
         return x
     
     def y():
         y = random.random() * 10
-        y = round(y, Amount_of_Decimals)
-        y += Points
+        y = round(y, Difficulty)
         if int(y) == float(y):
             y = int(y)
         return y
 
     x = x()
     y = y()
-    print(Points)
+
+    if Points == 5:
+        print("\nCongrats! you now have 5 points.")
+    if (Points % 10) == 0:
+        print(f"\nCongrats! you now have {Points} points.")
     
     if Sign == "+":
         Correct_Answer = x + y
@@ -71,17 +80,16 @@ while t == 0: #Loop the whole program
     if Sign == "*":
         Correct_Answer = x * y
     if Sign == "/":
-        Correct_Answer = round((x / y), Amount_of_Decimals)
-    print(Points_bool)
+        Correct_Answer = round((x / y), Difficulty)
+
     while Wrong_Right == False and Guesses > -1:
         print(f"\nwhat is {x} {Sign} {y}?")
         Answer = input("Answer: ")
         print(Correct_Answer)
         if (Correct_Answer * 0.999) < float(Answer) < (Correct_Answer * 1.001):
-            print("\nThat's correct!\n")
+            print("\nThat's correct!")
             Wrong_Right == True
-            if Points_bool == True:
-                Points += 1
+            Points += 1
             Guesses = -2
             
         elif Guesses > 0:
